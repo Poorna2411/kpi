@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset some default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            position: relative;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+        }
+
+        .container:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .profile-img {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid #4CAF50;
+            object-fit: cover;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-img img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .edit-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-icon:hover {
+            background-color: #45a049;
+        }
+
+        .form-container {
+            display: none; /* Hide form initially */
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .form-container.show {
+            display: block; /* Show form when class is added */
+        }
+
+        label {
+            font-weight: 600;
+            text-align: left;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input[type="text"], input[type="file"] {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            width: 100%;
+        }
+
+        input[type="text"]:focus, input[type="file"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        .logout-btn {
+            background-color: #ff4d4d;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff3333;
+        }
+
+        .user-info {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .user-info p {
+            margin: 10px 0;
+            font-weight: 600;
+        }
+
+        .kpi-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .kpi-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .profile-img img {
+                width: 120px;
+                height: 120px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            .btn, .logout-btn, .kpi-btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>User Profile</h2>
+
+        <div class="profile-img">
+            <img src="{{ user.profile.profile_image.url }}" alt="Profile Image">
+        </div>
+
+        <!-- User Information -->
+        <div class="user-info">
+            <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><strong>Designation:</strong> {{ user.profile.designation }}</p>
+            <p><strong>Department:</strong> {{ user.profile.department }}</p>
+            <p><strong>Faculty ID:</strong> {{ user.profile.faculty_id }}</p>
+        </div>
+
+        <!-- Update Button -->
+        <button id="updateBtn" class="btn">Update Profile</button>
+
+        <!-- Profile update form -->
+        <div id="formContainer" class="form-container">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="designation">Designation</label>
+                <input type="text" id="designation" name="designation" value="{{ form.designation.value }}">
+
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" value="{{ form.department.value }}">
+
+                <label for="faculty_id">Faculty ID</label>
+                <input type="text" id="faculty_id" name="faculty_id" value="{{ form.faculty_id.value }}">
+
+                <label for="profile_image">Update Profile Image</label>
+                <input type="file" id="profile_image" name="profile_image">
+
+                <button type="submit" class="btn">Save Changes</button>
+                <a href="{% url 'home' %}" class="btn logout-btn" style="margin-top: 20px;">Logout</a>
+            </form>
+        </div>
+
+        
+    </div>
+
+    <!-- KPI Button -->
+    <a href="{% url 'add_kpi'%}" class="kpi-btn">KPI</a>
+
+    <script>
+        document.getElementById('updateBtn').addEventListener('click', function() {
+            var formContainer = document.getElementById('formContainer');
+            formContainer.classList.toggle('show');
+            this.textContent = formContainer.classList.contains('show') ? 'Cancel' : 'Update Profile';
+        });
+    </script>
+</body>
+</html>

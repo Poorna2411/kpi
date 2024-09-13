@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Navigation bar styling */
+        nav {
+            background-color: #333;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul li {
+            display: inline;
+            padding: 10px 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            color: #ff9900;
+        }
+
+        /* Hero section styling */
+        .hero {
+            background: url('https://source.unsplash.com/random/1600x900') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #ff9900;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e68a00;
+        }
+
+        /* Features section */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px 0;
+            background-color: #f4f4f4;
+        }
+
+        .feature-box {
+            text-align: center;
+            width: 30%;
+        }
+
+        .feature-box img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .feature-box h3 {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        .feature-box p {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="{% url 'login'%}">Login</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div>
+            <h1>Welcome to Our Website</h1>
+            <p>Bringing you closer to innovation</p>
+            <button class="btn">Learn More</button>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-box">
+            <img src="https://img.icons8.com/ios-filled/100/000000/rocket.png" alt="Feature 1">
+            <h3>Fast Performance</h3>
+            <p>Experience the fastest response time in our service</p>
+        </div>
+        <div class="feature-box">
+            <img src="https://img.icons8.com/ios-filled/100/000000/cloud.png" alt="Feature 2">
+            <h3>Cloud Integration</h3>
+            <p>Seamless cloud-based services for your business</p>
+        </div>
+        <div class="feature-box">
+            <img src="https://img.icons8.com/ios-filled/100/000000/shield.png" alt="Feature 3">
+            <h3>Top Security</h3>
+            <p>We ensure top-notch security for all your data</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Your Company. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
