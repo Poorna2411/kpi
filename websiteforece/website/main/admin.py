@@ -7,7 +7,6 @@ class KPIAdmin(admin.ModelAdmin):
     list_display = ('user', 'co_authors', 'journal_name', 'article_title', 'volume_issue', 'pages', 'pub_date', 'impact_factor', 
                     'published', 'indexed', 'index_info', 'doi', 'h_index', 'issn')  # Example fields
     
-    # Define an action to export selected KPIs to Excel
     actions = ['export_to_excel']
 
     def export_to_excel(self, request, queryset):
@@ -15,11 +14,10 @@ class KPIAdmin(admin.ModelAdmin):
         ws = wb.active
         ws.title = "KPIs"
 
-        # Write the header
+
         headers = ['Attribute', 'Value']
         ws.append(headers)
-
-        # Write the data vertically
+        
         for kpi in queryset:
             ws.append(['Faculty', str(kpi.user)])
             ws.append(['co_authors', kpi.co_authors])
@@ -45,6 +43,5 @@ class KPIAdmin(admin.ModelAdmin):
 
     export_to_excel.short_description = "Download Selected KPIs as Excel"
 
-# Register the admin class with the KPI model
 admin.site.register(KPI, KPIAdmin)
 admin.site.register(Profile)
